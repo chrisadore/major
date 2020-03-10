@@ -680,7 +680,7 @@ export default {
   name: "application",
   data() {
     return {
-      e6: 8,
+      e6: 1,
       dropdown1: ["male", "female", "transgender", "others"],
       dropdown2: ["married", "single", "divorced", "widow"],
       dropdown3: ["Bachelors", "Masters", "Diploma", "PhD"],
