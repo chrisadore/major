@@ -3,15 +3,13 @@ import "firebase/firestore";
 import "firebase/storage";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyD4y2ciGsy6-f-b8mYcoeop7iG6Y-G3umA",
-  authDomain: "forpro-e2efe.firebaseapp.com",
-  databaseURL: "https://forpro-e2efe.firebaseio.com",
-  projectId: "forpro-e2efe",
-  storageBucket: "gs://forpro-e2efe.appspot.com",
-  messagingSenderId: "230899097094",
-  appId: "1:230899097094:web:cabb301dfa86553529ed87",
-  measurementId: "G-MD3TJLL4VQ"
+  apiKey: "AIzaSyDI_VEZ5xWZnN9wUPxH1svapM1wFZHkWr8",
+  authDomain: "muj-foreign-relations.firebaseapp.com",
+  databaseURL: "https://muj-foreign-relations.firebaseio.com",
+  projectId: "muj-foreign-relations",
+  storageBucket: "muj-foreign-relations.appspot.com",
+  messagingSenderId: "534214150982",
+  appId: "1:534214150982:web:857ff349162f96770e3347"
 });
-
 
 export default firebase;

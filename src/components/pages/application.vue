@@ -635,17 +635,35 @@
                     >Upload
                     <v-icon right>mdi-cloud-upload</v-icon>
                   </v-btn>
-                  <img :src="imageURL" alt="" />
-                  <!-- <v-file-input name="NOC" id="NOC"  accept=".pdf" label="Upload NOC"></v-file-input>
-          <v-file-input name="creditForm" id="creditForm"  accept=".pdf" label="Upload Your creditForm"></v-file-input> -->
+                  <!-- <v-file-input
+                    name="NOC"
+                    id="NOC"
+                    accept=".pdf"
+                    label="Upload NOC"
+                  ></v-file-input>
+                  <v-file-input
+                    name="creditForm"
+                    id="creditForm"
+                    accept=".pdf"
+                    label="Upload Your creditForm"
+                  ></v-file-input> -->
+                  <v-card-actions v-if="imageURL != ''">
+                    <img
+                      :src="imageURL"
+                      alt=""
+                      style="height: 100px; width: auto;"
+                    />
+                  </v-card-actions>
                 </v-card>
                 <v-btn
                   class="primary"
                   :disabled="!formIsValid || loading"
                   type="submit"
+                  :loading="loading"
+                  @click="onCreateNode"
                   >Create meetup</v-btn
                 >
-                <v-btn text @click="e6 = 4">Back</v-btn>
+                <v-btn text class="mx-2" @click="e6 = 4">Back</v-btn>
               </v-stepper-content>
             </v-stepper>
           </form>
@@ -793,6 +811,7 @@ export default {
       if (!this.formIsValid) {
         return;
       }
+      this.loading = true;
       const studentData = {
         name: this.name,
         programme: this.programme,
@@ -840,21 +859,57 @@ export default {
         correspondenceAdd: this.correspondenceAdd,
         corContact: this.corContact,
         corFax: this.corFax,
-        corEmail: this.corEmail
+        corEmail: this.corEmail,
+        imageURL: this.imageURL
       };
-      this.$store.dispatch("studentData", studentData);
+      this.$store
+        .dispatch("pushStudentData", payload)
+        .then(message => {
+          this.snackbarText = message;
+          this.snackbar = true;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.snackbarText = error;
+          this.snackbar = true;
+          this.loading = false;
+        });
     },
     uploadPhoto() {
       if (this.photo == null || this.photo == undefined) return;
       var storageRef = firebase.storage().ref();
       this.loading = true;
-      storageRef
-        .child(`documents/${this.photo.name}`)
-        .put(this.photo)
+      var uploadTask = storageRef
+        .child(`documents/${this.mobileno}/${this.photo.name}`)
+        .put(this.photo);
+      uploadTask
         .then(snapshot => {
-          this.loading = false;
+          console.log(snapshot);
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.imageURL = downloadURL;
+          });
           this.photo = null;
           this.snackbarText = "Photo uploaded successfully!";
+          this.snackbar = true;
+          this.loading = false;
+        })
+        .catch(error => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              this.snackbarText =
+                "You are unauthorized to perform this action!";
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              this.snackbarText =
+                "Storage cancelled abruplty. Please try again!";
+              break;
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              this.snackbarText = "An error occured. Please try again!";
+              break;
+          }
           this.snackbar = true;
         });
     }
