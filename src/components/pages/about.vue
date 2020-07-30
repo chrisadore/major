@@ -1,63 +1,17 @@
 <template>
   <v-content>
+    <template>
       <v-parallax height="300" src="/static/buildinglow.jpg">
-        
-          <h2 class="text-center display-1 pa-2 white--text">
-         DIRECTORATE OF INTERNATIONAL COLLABORATIONS
-        </h2>
-        
-      </v-parallax>
-
-
-
-    <v-container>
-      <v-flex>
-        <v-flex xs10 offset-xs1 pt-5 px-5>
-          <h2 class="text-center  display-1">Overview</h2>
-        </v-flex>
-        <v-container pb-5 class="body-2">
-          <p>
-            Directorate of Internationalization and Collaborations (DoIC) is
-            headed by a team of dedicated staff and supported by the advisory
-            council with a group of faculty and administrators representing key
-            academic units are functional under this office. DoIC:
-          </p>
-          <ul class="body-2">
-            <li>
-              is established to promote internationalization and partnerships
-              with international institutes
-            </li>
-            <li>
-              is functional for collaboration with institutes globally for
-              student and faculty exchange, semester abroad program, student
-              mobility, higher education opportunities and signing of MoUs with
-              local and global educational and research Institutes.
-            </li>
-            <li>
-              also supports local student chapter of The International
-              Association for the Exchange of Students for Technical Experience
-              (IAESTE)
-            </li>
-            <li>
-              team also takes care and all International activities, projects,
-              funding, mobility (short, long) and Summer and Winter Schools
-            </li>
-          </ul>
-          <br />
-          <p>
-            In summary, this office provides the comprehensive and unified
-            framework within which all work in the International arena can
-            seamlessly be achieved.
-          </p>
-        </v-container>
-      </v-flex>
+        <h1 class="text-center display-1">ABOUT US</h1></v-parallax
+      >
+    </template>
 <v-container wrap>
   
-        <v-expansion-panels v-model="panel" popout tile flat>
+        <v-expansion-panels popout tile flat>
     <v-expansion-panel class=" grey lighten-2"
     >
-      <v-expansion-panel-header><h2 class=" display-1 pa-3  pink--text text--darken-3">
-         EXPLORE DoIC
+      <v-expansion-panel-header><h2 class=" display-1 pa-3 pink--text text--darken-3">
+         EXPLORE
         </h2></v-expansion-panel-header>
       <v-expansion-panel-content>
        
@@ -68,9 +22,12 @@
             <v-layout row wrap align-baseline>
                <v-flex class="  xs12 md6" 
             v-for="item in explore"
-            :key="item.title">
+            :key="item.title"
+            router
+            :href="item.link">
                 <v-sheet
-          class="transparent  pink--text text--darken-4" 
+          class="transparent pink--text text--darken-4"
+          
           outlined
           tile
         >
@@ -104,8 +61,33 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
+    </v-container>
+    
+      <v-container >
+          
+       <v-flex>
+      <v-flex xs10 offset-xs1 pt-5 px-5>
+        <H3 class="text-center display-1">MANIPAL UNIVERSITY JAIPUR</H3>
+      </v-flex>
+      <v-container class="pb-5 body-2">
+        <p>The Manipal Education Group is an established leader in the field of education, research and healthcare. In a span of 
+            over six decades, it has transformed the lives of more than 3,00,000 students from over 59 countries. The group includes 
+            five Universities - Manipal Academy of Higher Education (MAHE, Karnataka), Sikkim Manipal University (Sikkim), American 
+            University of Antigua (Caribbean Islands), Manipal International University (Malaysia) and Manipal University Jaipur (Jaipur).</p>
+        <p>Manipal University Jaipur (MUJ) was launched in 2011 on an invitation from the Government of Rajasthan, as a self-financed State 
+            University. MUJ has redefined academic excellence in the region, with the Manipal way of learning; one that inspires students of 
+            all disciplines to learn and innovate through hands on practical experience.</p>
+        <p>Jaipur, being one of the fastest growing cities in India, has increasing demand for quality higher education in the region. 
+            Following an allotment of 122 Acres of land at Dehmi Kalan village near Jaipur, the permanent campus of the University has 
+            come up at a fast pace and is by far one of the best campuses in the region.</p>
+        <p>The multi-disciplinary university offers career-oriented courses at all levels, i.e., UG, PG and doctoral and across diverse streams, 
+            including Engineering, Architecture, Planning, Fashion Design, Fine Arts, Hospitality, Humanities, Journalism and Mass Communication, 
+            Basic Sciences, Law, Commerce, Computer Applications, Management, etc.  Some PG programmes are also available in the research mode.</p>
+        <p>MUJ boasts of best-in-class infrastructure, including state-of-the-art research facilities and a modern, digital library. In line with 
+            Manipal University's legacy of providing quality education to its students, the campus uses the latest in technology to impart education.</p>
 
-      <v-parallax height="300" src="/static/dome2.jpg">
+            <v-content>
+                <v-parallax height="400" src="/static/drop.jpg">
         
           <h2 class="text-center display-1 pa-2 white--text">
          <div
@@ -116,117 +98,38 @@
                width="250px"
                tile
               depressed
+                    rel="noopener noreferrer"
+                    target="_blank"
               class=" white--text mt-5"
               color="#c40018"
-              to="/apply"
-              >Apply now!</v-btn
+              href="https://jaipur.manipal.edu/"
+              >Visit Our Webite!</v-btn
             >
               </div>
         </h2>
         
       </v-parallax>
-    </v-container>
-      <v-container>
-        
-     <v-card
-            outlined
-            tile
-    class="mx-auto pa-2 mt-5 elevation-0"
-    max-width="800"
-  >
-    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/k6qGp6oUtbI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-  </v-card>
+            </v-content>
       </v-container>
-    </v-container>
+      </v-flex>
+      
+<v-flex>
+        <v-flex xs10 offset-xs1 pt-5 px-5>
+        <h3 class="text-center display-1">DIRECTORATE OF INTERNATIONAL COLLOBORATIONS
+</h3>
+      </v-flex>
+      <v-container  class="pb-5 body-2">
+        <p>The Directorate of International Collaborations is established to promote internationalization and partnerships with 
+            international institutes. The Directorate facilitates collaboration and partnerships with institutions globally for 
+            student and faculty exchange, semester abroad Programme, student mobility and higher education opportunities through 
+            signing of MoU with institutions and organizations. The Directorate is headed by Mr. Ajay Kumar Sharma, Director and 
+            supported by Dr. Santosh Patil, Deputy Director and Dr. Praveen Surolia, Assistant Director. A team of faculty members 
+            acting as nucleus members further strengthen and support the activities of the Directorate.</p>
 
-    <v-container>
-      <section row wrap justify-center mb-4>
-        <v-flex xs12>
+            
           <v-container grid-list-xl>
             <v-layout row wrap align-baseline>
-              <v-flex xs12 md6>
-                <v-card class="elevation-0 transparent">
-                  <v-card-text class="text-center">
-                    <v-icon x-large color="#E71D36" 
-                      >mdi-sign-direction</v-icon
-                    >
-                  </v-card-text>
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class=" display-1 text-xs-center">
-                      Provide Direction
-                    </div>
-                  </v-card-title>
-                  <v-card-text class="detail body-2">
-                    <p>
-                      The Office is primarily responsible for providing
-                      direction, assistance and synchronizing all of the
-                      University’s international work with overseas Institutions
-                      and Governments. While providing this leadership role, the
-                      office does recognize the importance of individual
-                      initiatives, needs and innovativeness of faculty and
-                      students across the University. Thus, its primary role is
-                      to coordinate the individual activities through a central
-                      location, within the context of a well thought out
-                      international strategic plan and to facilitate the
-                      interrelated and concomitant activities. The key focus is
-                      to provide a centralized location for helping the faculty,
-                      staff and students the needed assistance for all of their
-                      international work. Individual decentralized colleges and
-                      schools will still continue to pursue their individual
-                      interests although they will be required to coordinate
-                      their work through this central location.
-                    </p>
-                    <p>
-                      The office will also help align international
-                      opportunities with each college’s curriculum enabling
-                      student mobility across institutions, enroll transnational
-                      students for both short and long term, facilitate
-                      institutional grants and contracts, and pursue value
-                      creating projects for the University in general.
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-
-              <v-flex xs12 md6>
-                <v-card class="elevation-0 transparent">
-                  <v-card-text class="text-center">
-                    <v-icon x-large color="#E71D36"
-                      >mdi-book-open-page-variant</v-icon
-                    >
-                  </v-card-text>
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class=" display-1 text-xs-center">
-                      Foreign Education
-                    </div>
-                  </v-card-title>
-                  <v-card-text class="detail body-2">
-                    <p>
-                      It is not uncommon these days for students to traverse the
-                      globe to spend a few weeks or a semester engaging
-                      themselves in studying, co-opting or interning, conducting
-                      research or partaking in other academic pursuits, in
-                      countries around the world. These experiences advance and
-                      impact positively their attitudes, skill sets and
-                      knowledge base, which will be of immense benefit to the
-                      students and enable to be competitive and resourceful in
-                      the future. Thus, DoIC will be the University's
-                      comprehensive resource for study abroad, research abroad,
-                      intern abroad, and other educational experiences
-                      worldwide. The pivotal goal is to help students and
-                      faculty stretch across borders, perhaps farther than they
-                      thought possible. By promoting intercultural competence,
-                      meticulous erudition and acquisition of foreign languages,
-                      DoIC should provide opportunities for academically sound
-                      international experiences. It will also administer student
-                      exchange programs with partner institutions around the
-                      globe, in conjunction with other bodies on campus.
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-
+                
               <v-flex xs12 md6>
                 <v-card class="elevation-0 transparent">
                   <v-card-title primary-title class="layout justify-center">
@@ -260,7 +163,7 @@
                                 <h4
                                   class="text-center title white--text font-weight-light"
                                 >
-                                   Deputy Director
+                                  Deputy Director
                                 </h4>
                               </v-col>
 
@@ -272,7 +175,7 @@
                                 <h4
                                   class="text-center title white--text font-weight-light right"
                                 >
-                                  Assistant Director
+                                 Assistant Director
                                 </h4>
                               </v-col>
                             </v-row>
@@ -329,9 +232,9 @@
                   <v-container>
                     <v-flex  class="text-center">
           
-                        <iframe  class="hidden-md-and-down" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="500" height="390"></iframe>
+                        <iframe  class="hidden-xs-only && hidden-sm-only" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="500" height="390"></iframe>
                         
-                        <iframe  class="hidden-lg-and-up" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="250" height="300"></iframe>
+                        <iframe  class="hidden-md-and-up" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="250" height="300"></iframe>
                         
         </v-flex>
                     <template>
@@ -367,10 +270,6 @@
                               >
                                 <v-list-item two-line>
                                   <v-list-item-content>
-                                    <!-- <v-avatar class="mr-4" size="36" tile width="55px"><img
-        :src="item.flag"
-        alt="flag"
-      ></v-avatar> -->
                                     <v-list-item-title>{{
                                       item.name
                                     }}</v-list-item-title>
@@ -400,77 +299,39 @@
                   </v-container>
                 </v-card>
               </v-flex>
-
-              <v-flex xs12 md6>
-                <v-card class="elevation-0 transparent">
-                  <v-card-text class="text-center">
-                    <v-icon x-large color="#E71D36"
-                      >mdi-semantic-web</v-icon
-                    >
-                  </v-card-text>
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class=" display-1">Resource Centre</div>
-                  </v-card-title>
-                  <v-card-text class="detail body-2">
-                    <p>
-                      It will serve as the primary liaison and resource center
-                      for the University’s vital international linkages, by
-                      supporting the development of all memorandum of agreements
-                      and partnerships with overseas universities, foreign
-                      governments and international organizations abroad. It
-                      will help promote the involvement of Manipal’s faculty
-                      members, staff and students in international research and
-                      development projects, facilitate access to international
-                      funding opportunities and in general enrich Manipal
-                      Academy of Higher Education’s engagement with global
-                      cultures by sharing our physical and intellectual
-                      resources with other societies across the world.
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-
-              <v-flex xs12 md6>
-                <v-card class="elevation-0 transparent">
-                  <v-card-text class="text-center">
-                    <v-icon x-large color="#E71D36"
-                      >mdi-face-agent</v-icon
-                    >
-                  </v-card-text>
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class=" display-1">Student Services</div>
-                  </v-card-title>
-                  <v-card-text class="detail body-2">
-                    <p>
-                      DoIC will also provide the necessary expertise in the
-                      advising of various aspects of settling in on campus and
-                      compliance with immigration requirements for all
-                      international students, international faculty and staff,
-                      and short-term exchange visitors. Similar assistance will
-                      be extended to Manipal students aspiring to travel
-                      overseas to facilitate a safe and pleasant experience. In
-                      addition, in the long run the DoIC should ensure the
-                      university compliance with the myriad of evolving
-                      regulations in conjunction with the office of quality and
-                      compliance, support the University by managing global
-                      student and scholar interactions, and facilitate in
-                      general, the well-being of all international students,
-                      faculty, and staff.
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
             </v-layout>
           </v-container>
-        </v-flex>
-      </section>
-    </v-container>
+
+          <v-container>
+              <p>The nodal officer and Nucleus member initiates, coordinates and keeps track of activities with respect to the MoU. 
+                  The nodal officers submit a quarterly report to Advisor- International Programme. </p>
+
+                  <p>With international tie ups the Directorate facilitates networking of students and faculty across partner 
+                      institutions and impart training to gain practical experience in international work environment, fast changing 
+                      industrial scenarios, academic and industrial research. The Directorate organizes and coordinates several activities 
+                      and programmes to improve social and cultural skills of all stakeholders like International Culture Day, Cross Cultural 
+                      Culinary workshops, Cultural Immersion Trips and Explore India Programmes. The Directorate on periodic basis organizes 
+                      presentations and interaction session of academic and industry partners with both students and faculty of MUJ. 
+                      Interaction of visiting guests with leadership team of MUJ is arranged to further strengthen the ties at the highest 
+                      level leading to MoU’s or Agreements. Departmental heads confirm credit exchange possibilities and parity (Credit Mapping) 
+                      in terms of courses on offer during the semester. Students and faculty of partner institutes willing for association with 
+                      MUJ are always welcome. Manipal University Jaipur has over 66 Memorandum of Understanding (MoU) signed with Universities 
+                      and Institutes from USA, UK, France, Australia, Russia, Malaysia, Germany, New Zealand, Portugal, Bulgaria, Czech Republic, 
+                      Hungary, Nepal, Poland, Serbia, Singapore, South Africa, Switzerland, Ukraine and Thailand. Out of these 22 MoU have been 
+                      signed in 2018-19.  With many more MoU in the pipeline, MUJ is striving to leave its impression across the globe.</p>
+          </v-container>
+      </v-container>
+      </v-flex>
+
+
+      </v-container>
   </v-content>
 </template>
 
 <script>
 export default {
-  data() {
+  name: "about",
+    data() {
     return {
       panel: 0,
       sheet: false,
@@ -529,6 +390,6 @@ export default {
       ]
     };
   }
-};
+  }
 </script>
 

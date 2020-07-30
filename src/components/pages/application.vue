@@ -1,27 +1,26 @@
 <template>
   <v-content>
+      <v-parallax height="300" src="/static/buildinglow.jpg">
+        <h2 class="text-center  display-1">
+          APPLICATION
+        </h2></v-parallax>
     <v-snackbar v-model="snackbar">
       {{ snackbarText }}
       <v-btn color="pink" text @click="snackbar = false">
         Close
       </v-btn>
     </v-snackbar>
-    <v-container>
-      <v-layout row>
-        <v-flex>
-          <h2>Application Form</h2>
-        </v-flex>
-      </v-layout>
+    <v-container >
       <v-layout row>
         <v-flex xs12>
-          <form @submit.prevent="onCreateNode" class="mx-auto">
+          <p class="overline warn">EVERY FIELD IS REQUIRED</p>
+          <form @submit.prevent="onCreateNode">
             <v-stepper v-model="e6" vertical>
-              <v-stepper-step :complete="e6 > 1" step="1">
+              <v-stepper-step :complete="e6 > 1" step="1"  @click="e6=1"> 
                 Start Applicaton Process
               </v-stepper-step>
               <v-stepper-content step="1">
-                <v-card class="elevation-0">
-                  <v-col cols="12" md="6">
+                <v-card class="elevation-0 mt-2">
                     <v-text-field
                       outlined
                       name="name"
@@ -29,18 +28,21 @@
                       id="name"
                       v-model="name"
                       required
+                    
                     >
                     </v-text-field>
 
-                    <v-text-field
+                    <v-autocomplete
                       outlined
+                      class="my-2"
+                      :items="program"
                       name="programme"
-                      label="Name of programme (exchange/ short-term/ internship/ visit)"
+                      label="Name of programme"
                       id="programme"
                       v-model="programme"
                       required
-                    >
-                    </v-text-field>
+                      
+                    ></v-autocomplete>
 
                     <v-text-field
                       outlined
@@ -52,6 +54,18 @@
                     >
                     </v-text-field>
 
+                    <v-autocomplete
+                      outlined
+                      class="my-2"
+                      :items="countrycode"
+                      name="studentcode"
+                      label="Country Code"
+                      id="studentcode"
+                      v-model="studentcode"
+                      required
+                      
+                    ></v-autocomplete>
+
                     <v-text-field
                       outlined
                       name="mobileno"
@@ -62,15 +76,39 @@
                     >
                     </v-text-field>
 
-                    <v-layout>
+                    <!-- <v-layout>
                       <v-row justify="space-around" class="mb-5">
                         <v-date-picker
                           width="350px"
                           v-model="DoB"
-                          color="green lighten-1"
+                          color="blue lighten-1"                          
+      :landscape="$vuetify.breakpoint.smAndUp"
                         ></v-date-picker>
                       </v-row>
-                    </v-layout>
+                    </v-layout> -->
+
+                      <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="DoB"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                        outlined
+                          v-model="DoB"
+                          label="Date of Birth"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="DoB" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(DoB)">OK</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
 
                     <v-text-field
                       outlined
@@ -82,28 +120,30 @@
                     >
                     </v-text-field>
 
-                    <v-text-field
+
+                    <v-autocomplete
                       outlined
+                      class="my-2"
+                      :items="countrydrop"
                       name="placeofbirth"
                       label="Place of Birth"
                       id="placeofbirth"
                       v-model="placeofbirth"
                       required
-                    >
-                    </v-text-field>
+                    ></v-autocomplete>
 
-                    <v-overflow-btn
+                    <v-comboboc
                       outlined
                       class="my-2"
                       :items="dropdown1"
                       name="gender"
-                      label="Gender"
+                      label="Gender (Specify if not on the list)"
                       id="gender"
                       v-model="gender"
                       required
-                    ></v-overflow-btn>
+                    ></v-comboboc>
 
-                    <v-overflow-btn
+                    <v-autocomplete
                       outlined
                       class="my-2"
                       :items="dropdown2"
@@ -112,18 +152,17 @@
                       id="maritalstatus"
                       v-model="maritalstatus"
                       required
-                    ></v-overflow-btn>
+                    ></v-autocomplete>
 
-                    <v-text-field
-                      outlined
-                      name="religion"
-                      label="Religion"
+
+                    <v-combobox
+                    :items="religions"
+                    name="religion"
+                      label="Religion (Speicify if not listed)"
                       id="religion"
                       v-model="religion"
-                      multi-line
-                      required
-                    >
-                    </v-text-field>
+                    outlined
+                  ></v-combobox>
 
                     <v-text-field
                       outlined
@@ -135,6 +174,7 @@
                     >
                     </v-text-field>
 
+
                     <v-text-field
                       outlined
                       name="nextOfKin"
@@ -144,6 +184,18 @@
                       required
                     >
                     </v-text-field>
+
+                    <v-autocomplete
+                      outlined
+                      class="my-2"
+                      :items="countrycode"
+                      name="kincode"
+                      label="Country Code"
+                      id="kincode"
+                      v-model="kincode"
+                      required
+                      
+                    ></v-autocomplete>
 
                     <v-text-field
                       outlined
@@ -164,6 +216,20 @@
                       required
                     >
                     </v-textarea>
+                    
+                    <v-autocomplete
+                    
+                      class="my-2"
+                      :items="countrydrop"
+                      outlined
+                      name="country"
+                      label="Country"
+                      id="country"
+                      v-model="country"
+                      required
+                    >
+                    </v-autocomplete>
+
 
                     <v-text-field
                       outlined
@@ -175,15 +241,6 @@
                     >
                     </v-text-field>
 
-                    <v-text-field
-                      outlined
-                      name="country"
-                      label="Country"
-                      id="country"
-                      v-model="country"
-                      required
-                    >
-                    </v-text-field>
 
                     <v-text-field
                       outlined
@@ -194,18 +251,17 @@
                       required
                     >
                     </v-text-field>
-                  </v-col>
                 </v-card>
                 <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 2" step="2"
+              <v-stepper-step :complete="e6 > 2" step="2"  @click="e6=2"
                 >Education at Home University</v-stepper-step
               >
 
               <v-stepper-content step="2">
                 <v-card class="elevation-0"
-                  ><v-col cols="12" md="6">
+                  >
                     <v-text-field
                       outlined
                       name="uniName"
@@ -225,6 +281,18 @@
                       required
                     >
                     </v-text-field>
+                    
+                    <v-autocomplete
+                      outlined
+                      class="my-2"
+                      :items="countrycode"
+                      name="unicode"
+                      label="Country Code"
+                      id="unicode"
+                      v-model="unicode"
+                      required
+                      
+                    ></v-autocomplete>
 
                     <v-text-field
                       outlined
@@ -276,7 +344,7 @@
                     >
                     </v-text-field>
 
-                    <v-overflow-btn
+                    <v-autocomplete
                       outlined
                       class="my-2"
                       :items="dropdown3"
@@ -285,7 +353,7 @@
                       id="degree"
                       v-model="degree"
                       required
-                    ></v-overflow-btn>
+                    ></v-autocomplete>
 
                     <v-text-field
                       outlined
@@ -326,13 +394,12 @@
                       required
                     >
                     </v-textarea>
-                  </v-col>
                 </v-card>
                 <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
                 <v-btn text @click="e6 = 1">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 3" step="3"
+              <v-stepper-step :complete="e6 > 3" step="3"  @click="e6=3"
                 >Others</v-stepper-step
               >
 
@@ -362,7 +429,7 @@
                 <v-btn text @click="e6 = 2">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 4" step="4"
+              <v-stepper-step :complete="e6 > 4" step="4"  @click="e6=4"
                 >Study In MUJ</v-stepper-step
               >
               <v-stepper-content step="4">
@@ -377,7 +444,7 @@
                   >
                   </v-text-field>
 
-                  <v-overflow-btn
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown4"
@@ -386,7 +453,7 @@
                     id="mouStatus"
                     v-model="mouStatus"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
 
                   <v-combobox
                     :items="dropdown5"
@@ -424,7 +491,7 @@
                   >
                   </v-textarea>
 
-                  <v-overflow-btn
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown4"
@@ -433,7 +500,7 @@
                     id="credit"
                     v-model="credit"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
 
                   <v-textarea
                     outlined
@@ -448,21 +515,21 @@
                 <v-btn text @click="e6 = 3">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 5" step="5"
+              <v-stepper-step :complete="e6 > 5" step="5"  @click="e6=5"
                 >Financial Information</v-stepper-step
               >
               <v-stepper-content step="5">
                 <v-card class="mt-2 elevation-0">
-                  <v-overflow-btn
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown6"
                     name="financialInfo"
-                    label="Financial Information"
+                    label="Where will the money come from?"
                     id="financialInfo"
                     v-model="financialInfo"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
 
                   <v-textarea
                     outlined
@@ -477,21 +544,24 @@
                 <v-btn text @click="e6 = 4">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 6" step="6"
+              <v-stepper-step :complete="e6 > 6" step="6"  @click="e6=6"
                 >Language Proficiency</v-stepper-step
               >
               <v-stepper-content step="6">
                 <v-card class="mt-2 elevation-0">
-                  <v-text-field
+                  
+
+                  <v-combobox 
+                    class="my-2"
+                    :items="languageslist"
                     outlined
                     name="nativeLang"
-                    label="Native Language"
+                    label="Native Language (Specify if other)"
                     id="nativeLang"
-                    v-model="nativeLang"
-                  >
-                  </v-text-field>
+                    v-model="nativeLang">
+                  </v-combobox>
 
-                  <v-overflow-btn
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown7"
@@ -500,9 +570,9 @@
                     id="englishPro"
                     v-model="englishPro"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
 
-                  <v-overflow-btn
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown7"
@@ -511,18 +581,20 @@
                     id="hindiPro"
                     v-model="hindiPro"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
 
-                  <v-text-field
+                  <v-combobox 
+                    class="my-2"
+                    :items="languageslist"
                     outlined
                     name="otherLangName"
-                    label="Other Language"
+                    label="Other Language (Specify if other)"
                     id="otherLangName"
-                    v-model="otherLangName"
-                  >
-                  </v-text-field>
+                    v-model="otherLangName">
 
-                  <v-overflow-btn
+                  </v-combobox>
+
+                  <v-autocomplete
                     outlined
                     class="my-2"
                     :items="dropdown8"
@@ -531,13 +603,13 @@
                     id="otherPro"
                     v-model="otherPro"
                     required
-                  ></v-overflow-btn>
+                  ></v-autocomplete>
                 </v-card>
                 <v-btn color="primary" @click="e6 = 7">Continue</v-btn>
                 <v-btn text @click="e6 = 5">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 7" step="7"
+              <v-stepper-step :complete="e6  > 7" step="7"  @click="e6=7"
                 >Inter-Office Communication</v-stepper-step
               >
               <v-stepper-content step="7">
@@ -578,6 +650,17 @@
                     required
                   >
                   </v-textarea>
+                  
+                    <v-autocomplete
+                      outlined
+                      class="my-2"
+                      :items="countrycode"
+                      name="corCode"
+                      label="Country Code"
+                      id="corCode"
+                      v-model="corCode"
+                      required
+                    ></v-autocomplete>
 
                   <v-text-field
                     outlined
@@ -602,7 +685,7 @@
                   <v-text-field
                     outlined
                     name="corEmail"
-                    label="Email Number"
+                    label="Email"
                     id="corEmail"
                     v-model="corEmail"
                     required
@@ -613,17 +696,20 @@
                 <v-btn text @click="e6 = 6">Back</v-btn>
               </v-stepper-content>
 
-              <v-stepper-step step="8"
-                >Documents <small>Summarize if needed</small></v-stepper-step
+              <v-stepper-step step="8" @click="e6=8"
+                >Documents <small>upload documents before submitting the application form</small></v-stepper-step
               >
               <v-stepper-content step="8">
                 <v-card class="elevation-0 mb-4">
-                  <p>Forms available at 'Learn More' section</p>
+                  <p>Forms available at 
+                      <a href="/apply">here</a>
+                      under 'List of documents required' section
+                     </p>
                   <v-file-input
                     accept="image/*"
-                    label="Upload Credit Mapping Form"
+                    label="Upload You Photo"
                     ref="fileInput"
-                    v-model="photo"
+                    v-model="photo" 
                   >
                   </v-file-input>
                   <v-btn
@@ -635,18 +721,6 @@
                     >Upload
                     <v-icon right>mdi-cloud-upload</v-icon>
                   </v-btn>
-                  <!-- <v-file-input
-                    name="NOC"
-                    id="NOC"
-                    accept=".pdf"
-                    label="Upload NOC"
-                  ></v-file-input>
-                  <v-file-input
-                    name="creditForm"
-                    id="creditForm"
-                    accept=".pdf"
-                    label="Upload Your creditForm"
-                  ></v-file-input> -->
                   <v-card-actions v-if="imageURL != ''">
                     <img
                       :src="imageURL"
@@ -654,16 +728,59 @@
                       style="height: 100px; width: auto;"
                     />
                   </v-card-actions>
+
+                  <v-file-input
+                    accept=".pdf"
+                    label="Upload Credit Mapping Form"
+                    ref="fileInput"
+                    v-model="CreditForm"
+                  >
+                  </v-file-input>
+                  <v-btn
+                    color="blue darken-2"
+                    class="white--text"
+                    @click="uploadCreditForm"
+                    :loading="loading"
+                    :disabled="loading"
+                    >Upload
+                    <v-icon right>mdi-cloud-upload</v-icon>
+                  </v-btn>
+                  <v-card-actions v-if="creditFormstat != ''" >
+                    <p>pdf uploaded successfully</p>
+                  </v-card-actions>
+
+                  <v-file-input
+                    accept=".pdf"
+                    label="Upload NOC Form"
+                    ref="fileInput"
+                    v-model="NOCForm"
+                  >
+                  </v-file-input>
+                  <v-btn
+                    color="blue darken-2"
+                    class="white--text"
+                    @click="uploadNOCForm"
+                    :loading="loading"
+                    :disabled="loading"
+                    >Upload
+                    <v-icon right>mdi-cloud-upload</v-icon>
+                  </v-btn>
+                  <v-card-actions v-if="NOCstat != ''">
+                    <p>pdf uploaded successfully</p>
+                  </v-card-actions>
                 </v-card>
-                <v-btn
+                  
+                <v-flex class="ma-5 pa-5">
+                  <v-btn
                   class="primary"
-                  :disabled="!formIsValid || loading"
+                  :disabled="!formIsValid && loading && NOCstat != '' &&  creditFormstat != '' && imageURL != ''"
                   type="submit"
                   :loading="loading"
                   @click="onCreateNode"
-                  >Create meetup</v-btn
+                  >Apply</v-btn
                 >
                 <v-btn text class="mx-2" @click="e6 = 4">Back</v-btn>
+                </v-flex>
               </v-stepper-content>
             </v-stepper>
           </form>
@@ -673,6 +790,13 @@
   </v-content>
 </template>
 
+
+<style>
+  .warn{
+    color: red;
+  }
+</style>
+
 <script>
 import firebase from "@/plugins/firebase";
 
@@ -681,26 +805,31 @@ export default {
   data() {
     return {
       e6: 1,
-      dropdown1: ["male", "female", "transgender", "others"],
-      dropdown2: ["married", "single", "divorced", "widow"],
-      dropdown3: ["Bachelors", "Masters", "Diploma", "PhD"],
+      modal: false,
+      program: ["Exchange", "Internship", "Short-term", "Visit"],
+      religions: ["Atheist/ Agnostic", "Buddhist", "Christian", "Hindu", "Jain", "Jewish", "Muslim", "Sikh"],
+      dropdown1: ["Female", "Male", "Transgender"],
+      dropdown2: ["Divorced", "Married", "Single", "Widowed"],
+      dropdown3: ["Bachelors", "Diploma", "Masters", "PhD"],
       dropdown4: ["No", "Yes"],
-      dropdown5: [
-        "Exchange Program",
-        "Short Term Program",
-        "Internship Program",
-        "Visits"
-      ],
-      dropdown6: ["Self sponsored", "Home Institution", "Sponsored"],
+      dropdown5: ["Exchange Program", "Short Term Program", "Internship Program", "Visits"],
+      dropdown6: ["Home Institution", "Self sponsored", "Sponsored"],
       dropdown7: ["Proficient", "Moderate", "Weak"],
       dropdown8: ["Proficient", "Moderate", "Weak", "Not Applicable"],
-      photo: null,
+      countrydrop: ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom", "United States of America" ,"Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"],
+      countrycode: ["+93","+355","+213","+376","+244","+1264","+1268","+54","+374","+297","+61","+43","+994","+1242","+973","+880","+1246","+375","+32","+501","+229","+1441","+975","+387","+267","+55","+55","+246","+673","+359","+226","+257","+855","+237","+1","+238","+1345","+236","+235","+56","+86","+61","+61","+57","+269","+242","+682","+506","+385","+53","+357","+420","+45","+253","+1767","+1849","+593","+20","+503","+240","+291","+372","+251","+500","+298","+679","+358","+33","+594","+689","+241","+220","+995","+49","+233","+350","+30","+299","+1473","+590","+1671","+502","+44","+224","+245","+592","+509","+672","+379","+504","+852","+36","+354","+91","+62","+98","+964","+353","+44","+972","+39","+1876","+81","+44","+962","+7","+254","+686","+965","+996","+856","+371","+961","+266","+231","+423","+370","+352","+853","+261","+265","+60","+960","+223","+356","+692","+596","+222","+230","+262","+52","+377","+976","+382","+1664","+212","+258","+95","+264","+674","+977","+31","+687","+64","+505","+227","+234","+683","+672","+1670","+47","+968","+92","+680","+507","+675","+595","+51","+63","+870","+48","+351","+1939","+974","+262","+40","+250","+1869","+1758","+508","+1784","+685","+378","+239","+966","+221","+381","+248","+232","+65","+421","+386","+677","+252","+27","+500","+34","+94","+249","+597","+268","+46","+41","+963","+886","+992","+66","+670","+228","+690","+676","+1868","+216","+90","+993","+1649","+688","+256","+380","+971","+44","+1","+1581","+598","+998","+678","+84","+681","+967","+260","+263"],
+      languageslist: ["Abkhazian", "Afar", "Afrikaans", "Akan", "Albanian", "Amharic", "Arabic", "Aragonese", "Armenian", "Assamese", "Avaric", "Avestan", "Aymara", "Azerbaijani", "Bambara", "Bashkir", "Basque", "Belarusian", "Bengali", "Bihari languages", "Bislama", "Bosnian", "Breton", "Bulgarian", "Burmese", "Catalan, Valencian", "Central Khmer", "Chamorro", "Chechen", "Chichewa, Chewa, Nyanja", "Chinese", "Church Slavonic, Old Bulgarian, Old Church Slavonic", "Chuvash", "Cornish", "Corsican", "Cree", "Croatian", "Czech", "Danish", "Divehi, Dhivehi, Maldivian", "Dutch, Flemish", "Dzongkha", "English", "Esperanto", "Estonian", "Ewe", "Faroese", "Fijian", "Finnish", "French", "Fulah", "Gaelic, Scottish Gaelic", "Galician", "Ganda", "Georgian", "German", "Gikuyu, Kikuyu", "Greek (Modern)", "Greenlandic, Kalaallisut", "Guarani", "Gujarati", "Haitian, Haitian Creole", "Hausa", "Hebrew", "Herero", "Hindi", "Hiri Motu", "Hungarian", "Icelandic", "Ido", "Igbo", "Indonesian", "Interlingua (International Auxiliary Language Association)", "Interlingue", "Inuktitut", "Inupiaq", "Irish", "Italian", "Japanese", "Javanese", "Kannada", "Kanuri", "Kashmiri", "Kazakh", "Kinyarwanda", "Komi", "Kongo", "Korean", "Kwanyama, Kuanyama", "Kurdish", "Kyrgyz", "Lao", "Latin", "Latvian", "Letzeburgesch, Luxembourgish", "Limburgish, Limburgan, Limburger", "Lingala", "Lithuanian", "Luba-Katanga", "Macedonian", "Malagasy", "Malay", "Malayalam", "Maltese", "Manx", "Maori", "Marathi", "Marshallese", "Moldovan, Moldavian, Romanian", "Mongolian", "Nauru", "Navajo, Navaho", "Northern Ndebele", "Ndonga", "Nepali", "Northern Sami", "Norwegian", "Norwegian Bokmål", "Norwegian Nynorsk", "Nuosu, Sichuan Yi", "Occitan (post 1500)", "Ojibwa", "Oriya", "Oromo", "Ossetian, Ossetic", "Pali", "Panjabi, Punjabi", "Pashto, Pushto", "Persian", "Polish", "Portuguese", "Quechua", "Romansh", "Rundi", "Russian", "Samoan", "Sango", "Sanskrit", "Sardinian", "Serbian", "Shona", "Sindhi", "Sinhala, Sinhalese", "Slovak", "Slovenian", "Somali", "Sotho, Southern", "South Ndebele", "Spanish, Castilian", "Sundanese", "Swahili", "Swati", "Swedish", "Tagalog", "Tahitian", "Tajik", "Tamil", "Tatar", "Telugu", "Thai", "Tibetan", "Tigrinya", "Tonga (Tonga Islands)", "Tsonga", "Tswana", "Turkish", "Turkmen", "Twi", "Uighur, Uyghur", "Ukrainian", "Urdu", "Uzbek", "Venda", "Vietnamese", "Volap_k", "Walloon", "Welsh", "Western Frisian", "Wolof", "Xhosa", "Yiddish", "Yoruba", "Zhuang, Chuang", "Zulu" 
+],
+photo: null,
+      CreditForm: null,
+      NOCForm: null,
       snackbarText: "",
       snackbar: false,
       loading: false,
       name: "",
       programme: "",
       passportno: "",
+      studentcode: "",
       mobileno: "",
       DoB: "",
       age: "",
@@ -710,6 +839,7 @@ export default {
       religion: "",
       email: "",
       nextOfKin: "",
+      kincode: "",
       contactNextOfKin: "",
       currentAddress: "",
       state: "",
@@ -717,6 +847,7 @@ export default {
       postalCode: "",
       uniName: "",
       uniWebsite: "",
+      unicode: "",
       uniContact: "",
       uniFax: "",
       uniEmail: "",
@@ -724,6 +855,8 @@ export default {
       programOfStudy: "",
       degree: "",
       imageURL: "",
+      NOCstat:"",
+      creditFormstat:"",
       semester: "",
       cgpa: "",
       yearOfGraduation: "",
@@ -749,9 +882,10 @@ export default {
       poition: "",
       dept: "",
       correspondenceAdd: "",
+      corCode:"",
       corContact: "",
       corFax: "",
-      corEmail: ""
+      corEmail: "",
     };
   },
   computed: {
@@ -760,6 +894,7 @@ export default {
         this.name !== "" &&
         this.programme !== "" &&
         this.passportno !== "" &&
+        this.studentcode !=="" &&
         this.mobileno !== "" &&
         this.DoB !== "" &&
         this.age !== "" &&
@@ -767,6 +902,7 @@ export default {
         this.religion !== "" &&
         this.email !== "" &&
         this.nextOfKin !== "" &&
+        this.kincode !== "" &&
         this.contactNextOfKin !== "" &&
         this.currentAddress !== "" &&
         this.state !== "" &&
@@ -774,6 +910,7 @@ export default {
         this.postalCode !== "" &&
         this.uniName !== "" &&
         this.uniWebsite !== "" &&
+        this.unicode !== "" &&
         this.uniContact !== "" &&
         this.uniFax !== "" &&
         this.uniEmail !== "" &&
@@ -800,6 +937,7 @@ export default {
         this.poition !== "" &&
         this.dept !== "" &&
         this.correspondenceAdd !== "" &&
+        this.corCode !== "" &&
         this.corContact !== "" &&
         this.corFax !== "" &&
         this.corEmail !== ""
@@ -816,7 +954,8 @@ export default {
         name: this.name,
         programme: this.programme,
         passportno: this.passportno,
-        mobileno: this.mobileno,
+        /* mobilenoCode: this.studentcode, */
+        mobileno: this.studentcode.concat(this.mobileno),
         DoB: this.DoB,
         placeofbirth: this.placeofbirth,
         gender: this.gender,
@@ -824,14 +963,14 @@ export default {
         religion: this.religion,
         email: this.email,
         nextOfKin: this.nextOfKin,
-        contactNextOfKin: this.contactNextOfKin,
+        contactNextOfKin: this.kincode.concat(this.contactNextOfKin),
         currentAddress: this.currentAddress,
         state: this.state,
         country: this.country,
         postalCode: this.postalCode,
         uniName: this.uniName,
         uniWebsite: this.uniWebsite,
-        uniContact: this.uniContact,
+        uniContact: this.unicode.concat(this.uniContact),
         uniFax: this.uniFax,
         uniEmail: this.uniWebsite,
         faculty: this.faculty,
@@ -857,13 +996,16 @@ export default {
         poition: this.poition,
         dept: this.dept,
         correspondenceAdd: this.correspondenceAdd,
-        corContact: this.corContact,
+        /* corCode: this.corCode, */
+        corContact: this.corCode.concat(this.corContact),
         corFax: this.corFax,
         corEmail: this.corEmail,
-        imageURL: this.imageURL
+        imageURL: this.imageURL,
+        NOCstat: this.NOCstat,
+        creditFormstat: this.creditFormstat
       };
       this.$store
-        .dispatch("pushStudentData", payload)
+        .dispatch("pushStudentData", studentData)
         .then(message => {
           this.snackbarText = message;
           this.snackbar = true;
@@ -889,7 +1031,81 @@ export default {
             this.imageURL = downloadURL;
           });
           this.photo = null;
-          this.snackbarText = "Photo uploaded successfully!";
+          this.snackbarText = "Uploaded successfully!";
+          this.snackbar = true;
+          this.loading = false;
+        })
+        .catch(error => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              this.snackbarText =
+                "You are unauthorized to perform this action!";
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              this.snackbarText =
+                "Storage cancelled abruplty. Please try again!";
+              break;
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              this.snackbarText = "An error occured. Please try again!";
+              break;
+          }
+          this.snackbar = true;
+        });
+    },
+
+        uploadNOCForm() {
+      if (this.NOCForm == null || this.NOCForm == undefined) return;
+      var storageRef = firebase.storage().ref();
+      this.loading = true;
+      var uploadTask = storageRef
+        .child(`documents/${this.mobileno}/${this.NOCForm.name}`)
+        .put(this.NOCForm);
+      uploadTask
+        .then(snapshot => {
+          console.log(snapshot);
+          this.NOCstat = "uploaded";
+          this.NOCForm = null;
+          this.snackbarText = "Uploaded successfully!";
+          this.snackbar = true;
+          this.loading = false;
+        })
+        .catch(error => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              this.snackbarText =
+                "You are unauthorized to perform this action!";
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              this.snackbarText =
+                "Storage cancelled abruplty. Please try again!";
+              break;
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              this.snackbarText = "An error occured. Please try again!";
+              break;
+          }
+          this.snackbar = true;
+        });
+    },
+
+        uploadCreditForm() {
+      if (this.CreditForm == null || this.CreditForm == undefined) return;
+      var storageRef = firebase.storage().ref();
+      this.loading = true;
+      var uploadTask = storageRef
+        .child(`documents/${this.mobileno}/${this.CreditForm.name}`)
+        .put(this.CreditForm);
+      uploadTask
+        .then(snapshot => {
+          console.log(snapshot);
+          this.creditFormstat = "uploaded";
+          this.CreditForm = null;
+          this.snackbarText = "Uploaded successfully!";
           this.snackbar = true;
           this.loading = false;
         })

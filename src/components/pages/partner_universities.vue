@@ -1,9 +1,67 @@
 <template>
   <v-content>
     <template>
-      <v-parallax height="300" src="/static/building1.jpg"
+      <v-parallax height="300" src="/static/buildinglow.jpg"
         ><h2 class="text-center display-1">PARTNER UNIVERSITIES</h2></v-parallax
       >
+<v-container wrap>
+  
+        <v-expansion-panels tile flat>
+    <v-expansion-panel class=" grey lighten-2"
+    >
+      <v-expansion-panel-header><h2 class=" display-1 pa-3 pink--text text--darken-3">
+         EXPLORE
+        </h2></v-expansion-panel-header>
+      <v-expansion-panel-content>
+       
+             <section row wrap mb-4 class="grey lighten-2 ma-1">
+        
+        <v-flex xs12>
+          <v-container grid-list-xl>
+            <v-layout row wrap align-baseline>
+               <v-flex class="  xs12 md6" 
+            v-for="item in explore"
+            :key="item.title"
+            router
+            :href="item.link">
+                <v-sheet
+          class="transparent pink--text text--darken-4"
+          
+          outlined
+          tile
+        >
+          
+         <h4> {{item.title}}</h4>
+
+          <v-list
+          class="transparent">
+        <v-list-item
+          v-for="items in item.subs"
+            :key="items.title"
+            router
+            :href="items.link"
+          link
+        >
+
+          <v-list-item-content>
+            <v-list-item-title> <v-icon>mdi-arrow-right-bold</v-icon>
+              {{ items.subtitle }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+        </v-sheet>
+              </v-flex>     
+
+            </v-layout>
+          </v-container>
+        </v-flex>
+      </section>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
+    </v-container>
+    
     </template>
     <v-container>
       <v-flex>
@@ -33,27 +91,32 @@
             MUJ has established international programs and MoUs with the
             following Institutes/Universities abroad:
           </p>
+          
         </v-container>
       </v-flex>
 
       <v-container
-        ><v-flex xs12 md6 mx-auto>
-          <v-card class="elevation-3 transparent">
-            <v-container>
-              <v-flex><v-img src="/static/map.png"></v-img></v-flex>
-            </v-container>
-          </v-card>
+        ><v-flex  class="text-center">
+          
+                        <iframe  class="hidden-xs-only && hidden-sm-only" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="500" height="390"></iframe>
+                        
+                        <iframe  class="hidden-md-and-up" src="https://www.google.com/maps/d/u/0/embed?mid=16-bcEKK0Fkbx3zxJSGHdJdXq4E9yE1Jf" width="250" height="300"></iframe>
+                        
         </v-flex>
       </v-container>
 
       <v-container class=" body-2">
-        <v-expansion-panels
+        
+        <v-expansion-panels outlined
+        flat
           popout
           focusable
           v-for="univs in universities"
           :key="univs.country"
+          
+          
         >
-          <v-expansion-panel class="ma-1">
+          <v-expansion-panel class="ma-1" >
             <v-expansion-panel-header>
               <v-row no-gutters>
                 <v-row class="mb-4" align="center">
@@ -74,14 +137,12 @@
               </v-row>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="pa-2">
-              <a
+              <v-flex
                 v-for="item in univs.unis"
                 :key="item.name"
-                :href="item.link"
-                rel="noopener noreferrer"
-                target="_blank"
               >
-                <v-sheet :elevation="2" class="pa-5 text-left">
+              
+                <v-sheet :elevation="0" class="pa-5 text-left">
                   <p class=" px-5 grey--text text--darken-3 uname">
                     <v-tooltip color="black" top>
                       <template v-slot:activator="{ on }">
@@ -89,11 +150,11 @@
                           <v-icon color="orange">mdi-bookshelf</v-icon>
                         </v-btn>
                       </template>
-                      <span>Visit Website</span>
+                      <span>College</span>
                     </v-tooltip>
                     <span>{{ item.name }}</span>
                   </p>
-                  <p class=" px-5 grey--text text--darken-2">
+                  <p class=" px-5 grey--text text--darken-2" v-if="item.nofficer">
                     <v-tooltip color="black" bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on">
@@ -104,10 +165,24 @@
                     </v-tooltip>
                     <span>{{ item.nofficer }}</span>
                   </p>
+                  <p  class=" ml-2"
+                  >
+                    <v-btn
+                rel="noopener noreferrer"
+                target="_blank"
+                :href="item.link" class=" ml-5 pl-5"  depressed outlined color="orange">
+                Visit Website
+                <v-icon>mdi-chevron-right</v-icon>
+                </v-btn>
+                  </p>
                 </v-sheet>
+                <v-divider></v-divider>
                 <br
-              /></a>
+              /></v-flex>
+              
             </v-expansion-panel-content>
+                <v-divider></v-divider>
+            
           </v-expansion-panel>
         </v-expansion-panels>
       </v-container>
@@ -129,6 +204,30 @@ export default {
 
   data() {
     return {
+      explore : [
+      {title:'MUJ CENTER FOR INTERNATIONAL PROGRAMS', link:'',
+      subs:[{subtitle:'About', link:'/about'},
+              {subtitle:'Our Team', link:'/team'},
+              /* {subtitle:'Contact', link:''} */
+      ]},
+      {title:'INTERNATIONAL ACADEMIC PROGRAMS', link:'',
+      subs:[{subtitle:'Undergraduate Studies', link:'/undergraduate_studies'},
+              {subtitle:'Postgraduate Studies', link:'/postgraduate_studies'},
+              {subtitle:'PhD', link:'/phd'},
+      ]},
+      {title:'INTERNATIONAL ADMISSIONS', link:'',
+      subs:[{subtitle:'How to Apply', link:'/apply'},
+              {subtitle:'Register Online', link:'/application'},
+              {subtitle:'Fee (Foreign/NRI)', link:'https://jaipur.manipal.edu/muj/admission/international-students/fees.html'},
+              {subtitle:'Eligibility', link:'https://jaipur.manipal.edu/muj/admission/indian-students/who-can-apply.html'},
+              {subtitle:'Course fee refund rules', link:'https://jaipur.manipal.edu/muj/admission/international-students/fees-refund.html'},
+      ]},
+      {title:'STUDY @ MUJ', link:'',
+      subs:[{subtitle:'Academics', link:'https://jaipur.manipal.edu/muj/academics.html'},
+              {subtitle:'Life @ MUJ', link:'/life_at_muj'},
+              {subtitle:'Explore Rajasthan', link:'/rajasthan'}
+      ]},
+    ],
       universities: [
         {
           country: "AUSTRALIA",
@@ -139,7 +238,7 @@ export default {
                 "Commonwealth Scientific and Industrial Research Organisation",
               nofficer: "Dr Monika Sogani",
               link: "https://www.csiro.au/"
-            },
+               },
             {
               name: "Deakin University Victoria",
               nofficer: "Mr Ankit Mundra",

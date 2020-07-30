@@ -4,22 +4,69 @@
     <template>
           
      <v-parallax  height="300"
-    src="/static/building1.jpg"><h2 class="text-center display-1">GUIDELINES FOR INTERNATIONAL STUDENTS</h2></v-parallax>
+    src="/static/buildinglow.jpg"><h2 class="text-center display-1">GUIDELINES FOR INTERNATIONAL STUDENTS</h2></v-parallax>
 
     </template>
 
+<v-container wrap>
+  
+        <v-expansion-panels tile flat>
+    <v-expansion-panel class=" grey lighten-2"
+    >
+      <v-expansion-panel-header><h2 class=" display-1 pa-3 pink--text text--darken-3">
+         EXPLORE
+        </h2></v-expansion-panel-header>
+      <v-expansion-panel-content>
+       
+             <section row wrap mb-4 class="grey lighten-2 ma-1">
+        
+        <v-flex xs12>
+          <v-container grid-list-xl>
+            <v-layout row wrap align-baseline>
+               <v-flex class="  xs12 md6" 
+            v-for="item in explore"
+            :key="item.title"
+            router
+            :href="item.link">
+                <v-sheet
+          class="transparent pink--text text--darken-4"
+          
+          outlined
+          tile
+        >
+          
+         <h4> {{item.title}}</h4>
+
+          <v-list
+          class="transparent">
+        <v-list-item
+          v-for="items in item.subs"
+            :key="items.title"
+            router
+            :href="items.link"
+          link
+        >
+
+          <v-list-item-content>
+            <v-list-item-title> <v-icon>mdi-arrow-right-bold</v-icon>
+              {{ items.subtitle }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+        </v-sheet>
+              </v-flex>     
+
+            </v-layout>
+          </v-container>
+        </v-flex>
+      </section>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
+    </v-container>
+    
       <v-container >
-      <v-flex>
-
-        <v-flex xs10 offset-xs1 pt-5 px-5>
-        <h3 class="text-center display-1">Transportation</h3>
-      </v-flex>
-      <v-container  class="pb-5 body-2">
-        <p>Arrangements for pick up and drop will be arranged from Jaipur airport based on request.</p>
-
-      </v-container>
-      </v-flex>
-
       <v-flex>
       <v-flex xs10 offset-xs1 pt-5 px-5>
         <H3 class="text-center display-1">Housing and Accommodation</H3>
@@ -63,7 +110,7 @@
         <H3 class="text-center display-1">Student Affairs</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>The Department of Student Affairs looks after the welfare of the students. With about 18,000 students studying in the university,
+        <p>The Department of Student Affairs looks after the welfare of the students. With a lot of students studying in the university,
              it is imperative to have such a support group to look after their interests outside the classroom and provide special services. 
              The department's activities cover wide areas such as guidance, wellness, health and counselling and constantly evolves ways to
               support and foster students' interest in the university.</p>
@@ -80,15 +127,14 @@
         <H3 class="text-center display-1">Student Clinics</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>Student Health Clinics are made available to students for Non-Accident and Non-Emergency cases. 
-            With prior appointment students can avail medical aid at this clinic located at the 
-             floor of New Out-Patient block, Kasturba Hospital. For details, <a href="https://manipal.edu/content/dam/manipal/mu/documents/OIAC/3a.%20poster%20-%20student%20health%20clinic_2014.pdf">click here.</a></p>
+        <p>
+          A resident DOCTOR along with an AMBULANCE is available in the hostel premises itself. In case any student requires MEDICAL attention, he/she must immediately inform the Caretaker/Warden.
+The student will be given due attention in the form of proper MEDICAL CARE and taken to the HOSPITAL if required. The caretakers will call up and inform the Warden/Chief Warden who will inform the parents/guardians
+        </p>
         <p>Contact information: <br/>
-            Dr Suma Nair <br/>
-            Director Student Affairs <br/>
-            Office: Room no. 108, I floor, University building <br/>
-            Manipal <br/>
-            Phone: 91 820 2922035</p>
+            Boys: +91-7727006782
+ <br/>
+Girls: +91-7727006783</p>
       </v-container>
       </v-flex>
 
@@ -97,10 +143,28 @@
         <H3 class="text-center display-1">Library</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>Manipal Academy of Higher Education has some of the best libraries in Asia. There are six major central libraries - 
-            Health Sciences Library Manipal, Health Sciences Library Mangalore, MIT Library, MIC Library, WGSHA Library and MIM Library. 
-            The University always strives to provide the latest and best collection of books, journals, online sources, dissertations, 
-            etc to the students for course work and research.</p>
+        <p>Manipal University Jaipur’s Central Library is the hub for academic information services in the university and serves as a major learning and resource centre. The Central Library has a spacious area of 2319 Sq.m. that exudes peaceful learning environment. The Library is fully air-conditioned with the seating capacity of 450.
+
+        </p>
+        <p>
+
+The central Library employs RFID technology for access control, automatic issue and return of library documents, and stock verification of library holdings.
+
+ </p>
+<p>
+The Library has a collection of 57800 books with 14500 titles on various subjects and over 3000 reference books. It subscribes about 400 national and international print journals and holds over 450 project reports and 45 Ph.D Thesis.
+</p>
+ 
+<p>
+The Digital Library has subscribed 20 E-Resources include 17900 e-journals, manuals, reports, standards, and other information from ASCE, ASME, EBSCO Art & Architecture Complete, EBSCO Business Elite, EBSCO Hospitality & Tourism Complete, Emerald Premier e-journals, Taylor and Francis, DELNET-Proquest, DELNET-INFOTRAC, IEEE, SIAM Journals, LexisNexis, Manupatra, Supreme Court Cases, AIR online, EPW India Times,McGrawHill Science & Engineering Access, Science Direct, and World E-Books. The Digital library holds nearly 2500 CDs and DVDs.
+
+ </p>
+<p>
+The Central Library has established an Institutional Repository using Dspace: A Digital Library Software. The Central Library provides off campus access to all of its subscribed contents to the students, faculty, and research scholars through username and password using knimbus software. The Central Library extends research support to the researchers and faculty by providing Turnitin: A Plagiarism checking software.
+
+ </p>
+<p>
+The Central Library is a Member of DELNET, INFLIBNET, e-ShodhSindhu, ShodhGanga, British Council Library, Current Science, Indian Academy of Social Sciences, and American Library.</p>
       </v-container>
       </v-flex>
 
@@ -109,8 +173,8 @@
         <H3 class="text-center display-1">Food</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>University Food Courts are located on campus with vide variety of food and beverages made available on campus. 
-            Apart from these, students have plenty of options to taste different cuisines at the local hotels. <a href="https://manipal.edu/content/mu/campus-life/around-campus/campus-facilities/food-and-cuisine.html">click here</a></p>
+        <p>University Food Courts are located on campus with wide variety of food and beverages made available on campus. 
+            Apart from these, students have plenty of options to taste different cuisines at the local hotels.</p>
       </v-container>
       </v-flex>
 
@@ -139,12 +203,13 @@
         <H3 class="text-center display-1">Sports Facilities</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>The campus has playground for cricket, hockey, football, tennis, basketball, badminton and volleyball with individual sports court. 
-            Swimming pools, gymnasium, athletics track, walking track are made available at Manipal End Point to students and public in general. 
-            All the sports activities at Manipal Academy of Higher Education are conducted under the supervision of the University Sports Council.
-            MARENA, a six-storeyed indoor sports complex is a new attraction in Manipal. 
-            The arena houses not just India’s largest gymnasium but also has a football pitch, badminton courts, basketball courts, 
-            squash courts and a 200 meter synthetic jogging track. </p>
+        <p>Physical exercise is not only important for healthy body but it also helps brain stay sharp. And with an aim to grow the all-round personality of the students, Manipal University Jaipur accentuates equally to sports activities as on academics. It provides world-class sports facilities and necessary equipment that help young athletes to hone their sporting skills.
+</p><p>
+
+The university Physical Education experts routinely encourage students to attain sporting excellent for maintaining physical fitness and good health.
+</p><p>
+
+Here students can unleash their skills in indoor and outdoor sports like Table Tennis, Lane Tennis, Football, Cricket, Badminton, Squash, Throw-ball, Carrom, Chess, Kabaddi and many others. Matches at Intra-University and Inter-University level takes place throughout the academic session. </p>
 
         <p> Want to become a member? <a href="http://manipal.edu/mu/manipal-life/campus-life/sports-overview/marena.html">click here</a></p>
       </v-container>
@@ -190,41 +255,14 @@
         <H3 class="text-center display-1">Visa Requirements</H3>
       </v-flex>
       <v-container class="pb-5 body-2">
-        <p>Foreign national has to have a valid Student Visa. Tourist visa is not acceptable. Student/s should -
-            <ul>
-                <li>mandatorily apply for ‘student’ visa OR</li>
-                <li>‘X’ visa with special endorsement mentioning the purpose of visit</li>
-            </ul>
-        </p>
-        <p>Students visiting on ‘tourist’ visa will not be entertained. 
-            University has every right to withdraw the internship if the student comes on a tourist visa.
-            <ul>
-                <li>If the Student Visa expires during the course of their study, then such students have to apply 
-                    for extension of visa at the Foreigners’ Regional Registration Office (FRRO) at Udupi or Mangalore at least 60 days prior to its expiry.</li>
-                <li>Foreign nationals should also renew their RC and RP at the FRRO’s office at Udupi or Mangalore as and when 
-                    it expires or if they come with a new student visa. They should also carry the document every time they travel to their 
-                    country as this will have to be produced at the Immigration Counter in India before departure.</li>
-            </ul>
+        <p>All foreign students seeking admission at Manipal University have to come on a student visa which is valid for more than 180 days. Such students will have to register with the Foreigners' Registration Office (FRO) within 14 days of their arrival in India.
+</p>
+ <p>
+
+People of Indian origin can either come with a PIO Card or an OCI (Overseas Citizen of India). In such a case, they do not require a student visa to study in India. However, a PIO Card Holder will have to register with the FRO.
             </p>
       </v-container>
       </v-flex>
-
-      <!-- <v-flex>
-      <v-flex xs10 offset-xs1 pt-5 px-5>
-        <H3 class="text-center display-1">REGISTRATION AT FRRO</H3>
-      </v-flex>
-      <v-container class="pb-5 body-2">
-        <p>All foreign students holding a Student Visa are required to register with the FRRO 
-            (Superintendent of Police) within 14 days of their arrival in India.</p>
-        <p>Students are required to register online 
-            <a href="http://www.indianfrro.gov.in/frro/">(www.indianfrro.gov.in/frro)</a> 
-            and then personally visit the FRRO to collect the documents based on the Unique ID number generated online. 
-            The FRRO is located at the Office of Superintendent of Police at Udupi (5 kms from Manipal).</p>
-        <p>Office of International Affairs & Collaborations will assist you through the online registration process and as well
-             facilitate your visit to the FRO. Our office will guide you through the FRRO formalities. Please bring along your original 
-             passport and 4 passport size photographs on your way into the office.</p>
-      </v-container>
-      </v-flex> -->
 
       </v-container>
 
@@ -240,6 +278,30 @@
         text: '',
 
         tabs: 5,
+      explore : [
+      {title:'MUJ CENTER FOR INTERNATIONAL PROGRAMS', link:'',
+      subs:[{subtitle:'About', link:'/about'},
+              {subtitle:'Our Team', link:'/team'},
+              /* {subtitle:'Contact', link:''} */
+      ]},
+      {title:'INTERNATIONAL ACADEMIC PROGRAMS', link:'',
+      subs:[{subtitle:'Undergraduate Studies', link:'/undergraduate_studies'},
+              {subtitle:'Postgraduate Studies', link:'/postgraduate_studies'},
+              {subtitle:'PhD', link:'/phd'},
+      ]},
+      {title:'INTERNATIONAL ADMISSIONS', link:'',
+      subs:[{subtitle:'How to Apply', link:'/apply'},
+              {subtitle:'Register Online', link:'/application'},
+              {subtitle:'Fee (Foreign/NRI)', link:'https://jaipur.manipal.edu/muj/admission/international-students/fees.html'},
+              {subtitle:'Eligibility', link:'https://jaipur.manipal.edu/muj/admission/indian-students/who-can-apply.html'},
+              {subtitle:'Course fee refund rules', link:'https://jaipur.manipal.edu/muj/admission/international-students/fees-refund.html'},
+      ]},
+      {title:'STUDY @ MUJ', link:'',
+      subs:[{subtitle:'Academics', link:'https://jaipur.manipal.edu/muj/academics.html'},
+              {subtitle:'Life @ MUJ', link:'/life_at_muj'},
+              {subtitle:'Explore Rajasthan', link:'/rajasthan'}
+      ]},
+    ],
       }
     },
   }
